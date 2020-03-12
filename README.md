@@ -2,7 +2,7 @@
 
 Our Mobilization and Tech teams worked together to scale email outreach to the widest possible audience and free our incredible organizers from tedious manual tasks. For example, we set up an automated daily event invite mailing that recruited tens of thousands of volunteer shifts, and an automated mailing to event hosts that onboarded thousands of event hosts. We are grateful down to our toes for the hundreds of thousands of Warren supporters who used these emails to help our grassroots movement -- here's some technical behind-the-scenes!
 
-# Context
+## Background
 
 Warren for President had a world-class email organizing team. A lot of
 the program relied on personal touch. And there were opportunities to
@@ -15,7 +15,7 @@ audience and free our incredible teammates from or tedious manual tasks.
 This repository gives a taste of some of the workflows we set up to
 automatically prepare or send email for organizing.
 
-# Goal
+## Goal
 
 Our goal was to take successful manually-built emails
 and be able to send them in an automated way, at high volume, with full
@@ -36,7 +36,7 @@ workflows (e.g. Civis or Airflow) to schedule and send automated
 organizing email. The rest of this document we'll walk through how this
 looked for two example emails.
 
-# Onboarding volunteer event hosts
+## Onboarding volunteer event hosts
 
 The first use case of this email pipeline was personalized onboarding
 for new volunteer event hosts. Leading up to the first debate,
@@ -73,7 +73,7 @@ distributed events team dreamed.
 <img src="https://www.dropbox.com/s/jga8xi5ooslqwcn/Screenshot%202020-03-12%2000.40.15.png?raw=1" height=400>
 </kbd>
 
-# Inviting supporters to events
+## Inviting supporters to events
 
 Next, we turned our attention to event invites. Our supporters were
 stepping up all over the country to host all sorts of incredible events
@@ -132,7 +132,7 @@ dataset and a teammate would prepare the template and press send.
 <img src="https://www.dropbox.com/s/j3z1fcj9au4gm50/Screenshot%202020-03-11%2023.55.29.png?raw=1" height=300>
 </kbd>
 
-# And more!
+## And more!
 
 This framework supported all sorts of automated organizing needs as they
 came up.
@@ -173,17 +173,17 @@ elizabethwarren.com:
 
 ---
 
-And delivered your link to the Grassroots Donor Wall:
+And delivered your link to our Grassroots Donor Wall:
 
 <kbd>
 <img src="https://www.dropbox.com/s/56f8g98arl2kx0p/Screenshot%202020-03-12%2001.56.14.png?raw=1" height=300>
 </kbd>
 
-# In conclusion
+## In conclusion
 
 On the Tech team, we aimed to empower everybody on Warren for President with technology to support them in the fight. We helped scale organizing programs to reach hundreds of thousands of volunteers and millions of voters. We are so grateful for the hundreds of thousands of Warren supporters who used these emails to help our grassroots movement: thank you.
 
-## Appendix: In-the-weeds technical Details
+### Appendix: In-the-weeds technical Details
 
 What follows is an introduction to the code in this repo. It is not
 straightforwardly runnable out of the box, but hopefully can be used as
@@ -199,7 +199,7 @@ Inside a mailing’s directory, there are two pieces:
 - scheduling.sql: Creates one row in `triggeredemail.triggered_email_schedulings` per  email to send
 - payloads_create_schema.sql: Defines schema that holds the mailing’s payload variables
 
-### `triggered_email_schedulings` table
+#### `triggered_email_schedulings` table
 
 Schemas is defined in top-level `create_schema.sql`:
 
@@ -234,7 +234,7 @@ SORTKEY ("ds", "email");
 
 This table is populated by the first task in a Civis or Airflow workflow that schedules, forecasts, and sends a mailing every day (or every hour). The typical workflow would chain three jobs together: To schedule the mail for today (running `mailing/.../scheduling.sql`), to prepare the forecast spreadsheets (calling into forecast.py), then to send the mail (calling into `send_(triggered|recurring|ses).py`).
 
-### `triggered_email_sends` table
+#### `triggered_email_sends` table
 
 Also from `create_schema.sql`:
 
@@ -274,7 +274,7 @@ This table is populated by `send_triggered.py`: First it selects a batch of rows
 
 Nontransactional mails are higher volume and not good for BSD triggered email API. For these, we send once per day with `send_recurring.py`, and use a BSD recurring mailing. Finally, we also experimented with sending emails with SES (`send_ses.py`).
 
-### Forecasting
+#### Forecasting
 
 Some mails are transactional -- we send them as soon as possible after a user action (event approval, vol-yes canvass, or etc in the future). Some mails are promotional and nontransactional -- we send them to large swathes of our list. For these, we must be careful in how we time them.
 
