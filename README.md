@@ -1,4 +1,4 @@
-# Automating organizing email on Warren for President
+# Automated organizing email on Warren for President
 
 Our Mobilization and Tech teams worked together to scale email outreach to the widest possible audience and free our incredible organizers from tedious manual tasks. For example, we set up an automated daily event invite mailing that recruited tens of thousands of volunteer shifts, and an automated mailing to event hosts that onboarded thousands of event hosts. We are grateful down to our toes for the hundreds of thousands of Warren supporters who used these emails to help our grassroots movement -- here's some technical behind-the-scenes!
 
