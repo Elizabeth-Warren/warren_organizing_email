@@ -183,7 +183,7 @@ And delivered your link to our Grassroots Donor Wall:
 
 On the Tech team, we aimed to empower everybody on Warren for President with technology to support them in the fight. We helped scale organizing programs to reach hundreds of thousands of volunteers and millions of voters. We are so grateful for the hundreds of thousands of Warren supporters who used these emails to help our grassroots movement: thank you.
 
-### Appendix: In-the-weeds technical Details
+### Appendix: In-the-weeds technical details
 
 What follows is an introduction to the code in this repo. It is not
 straightforwardly runnable out of the box, but hopefully can be used as
